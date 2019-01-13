@@ -8,12 +8,11 @@ typedef struct strobject{
   int pointquantity;
   // Matrix that has the coordinates of each point
   float **points;
-  // The object is treated as a tridimensional graphs
+  // The object is treated as a tridimensional graph
   // So, there is a adjacency matrix
   // When the object is displayed, this matrix
   // is used to build the edges
   int **adjacency;
-  // Space where it is placed
 }Object;
 
 typedef struct strspace{
@@ -56,9 +55,9 @@ Object newObject(int dimension, int pointquantity, int edgequantity, ...);
 int addObject(Space *space, Object objpnt);
 // Copies an object that already exists
 Object copyObject(Object *obj);
-// Desallocates the memory to the Objects
+// Desallocates the memory to the Object
 void deleteObject(Object *obj);
-// Desallocates the memory to the Spaces
+// Desallocates the memory to the Space
 void deleteSpace(Space *space);
 
 #endif
