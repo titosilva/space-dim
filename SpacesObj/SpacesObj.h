@@ -13,12 +13,7 @@ typedef struct spaceobj_strobject{
   // When the object is displayed, this matrix
   // is used to build the edges
   int **adjacency;
-<<<<<<< HEAD
-  // Space where it is placed
 }DimObject;
-=======
-}Object;
->>>>>>> 84597b1039d93187c3195623d000a8044dd2c526
 
 typedef struct spaceobj_strspace{
   // Struct that has information about the space
@@ -59,17 +54,10 @@ DimObject newObject(int dimension, int pointquantity, int edgequantity, ...);
 // Returns -1 if space has different dimension to objpnt
 int addObject(Space *space, DimObject objpnt);
 // Copies an object that already exists
-<<<<<<< HEAD
 DimObject copyObject(DimObject *obj);
-// Desallocates the memory to the Objects
-void deleteObject(DimObject *obj);
-// Desallocates the memory to the Spaces
-=======
-Object copyObject(Object *obj);
 // Desallocates the memory to the Object
-void deleteObject(Object *obj);
+void deleteObject(DimObject *obj);
 // Desallocates the memory to the Space
->>>>>>> 84597b1039d93187c3195623d000a8044dd2c526
 void deleteSpace(Space *space);
 
 #endif
