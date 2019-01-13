@@ -7,6 +7,9 @@
 bool DrawableObject2d::setObject(DimObject *obj)
 {
   if(obj->dimension==2){
+    if(this->objectIsSet){
+      deleteObject(&this->object);
+    }
     this->object = copyObject(obj);
     this->objectIsSet = true;
     return true;
