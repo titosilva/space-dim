@@ -1,5 +1,5 @@
-#ifndef SPACESANDOBJECTS
-#define SPACESANDOBJECTS
+#ifndef SPACESANDOBJECTS_H
+#define SPACESANDOBJECTS_H
 
 typedef struct spaceobj_strobject{
   // Number of dimensions
