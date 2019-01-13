@@ -4,7 +4,7 @@
 // teste
 #include <iostream>
 
-bool DrawableObject2d::setObject(Object *obj)
+bool DrawableObject2d::setObject(DimObject *obj)
 {
   if(obj->dimension==2){
     this->object = copyObject(obj);

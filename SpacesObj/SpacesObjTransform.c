@@ -3,10 +3,10 @@
 #include <stdarg.h>
 #include <stdlib.h>
 
-Object projection(Object *obj, int finaldimension){
-  Object temp;
-  temp.dimension = finaldimension;
-  temp.points = (float**) calloc(obj->pointquantity, sizeof(float*));
+DimObject projection(DimObject *obj, int finaldimension){
+  DimObject object;
+  object.dimension = finaldimension;
+  object.points = (float**) calloc(obj->pointquantity, sizeof(float*));
 
   // Matrix to be applied to the set of points
   float **matrix = (float**) calloc(finaldimension, sizeof(float*));
@@ -18,21 +18,21 @@ Object projection(Object *obj, int finaldimension){
   }
 
   for(int i=0; i<obj->pointquantity; i++){
-    temp.points[i] = applyMatrix(finaldimension, obj->dimension, matrix, obj->points[i]);
+    object.points[i] = applyMatrix(finaldimension, obj->dimension, matrix, obj->points[i]);
   }
 
-  temp.pointquantity = obj->pointquantity;
+  object.pointquantity = obj->pointquantity;
 
   // Copy the adjacency matrix from obj
-  temp.adjacency = (int**) calloc(obj->pointquantity, sizeof(int*));
+  object.adjacency = (int**) calloc(obj->pointquantity, sizeof(int*));
   for(int i=0; i<obj->pointquantity; i++){
-    temp.adjacency[i] = (int*) calloc(obj->pointquantity, sizeof(int));
+    object.adjacency[i] = (int*) calloc(obj->pointquantity, sizeof(int));
     for(int j=0; j<obj->pointquantity; j++){
-      temp.adjacency[i][j] = obj->adjacency[i][j];
+      object.adjacency[i][j] = obj->adjacency[i][j];
     }
   }
 
-  return temp;
+  return object;
 }
 
 float *applyMatrix(int m, int n, float **matrix, float *vector){
@@ -50,16 +50,16 @@ float *applyMatrix(int m, int n, float **matrix, float *vector){
 }
 
 float **newMatrix(int m, int n, ...){
-  float **temp = (float**) calloc(m, sizeof(float*));
+  float **object = (float**) calloc(m, sizeof(float*));
   va_list args;
   va_start(args, n);
   for(int i=0; i<m; i++){
-    temp[i] = (float*) calloc(n, sizeof(float));
+    object[i] = (float*) calloc(n, sizeof(float));
     for(int j=0; j<n; j++){
-      temp[i][j] = (float) va_arg(args, double);
+      object[i][j] = (float) va_arg(args, double);
     }
   }
-  return temp;
+  return object;
 }
 
 void deleteMatrix(int m, float **matrix){

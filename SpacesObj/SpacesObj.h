@@ -1,7 +1,7 @@
 #ifndef SPACESANDOBJECTS
 #define SPACESANDOBJECTS
 
-typedef struct strobject{
+typedef struct spaceobj_strobject{
   // Number of dimensions
   int dimension;
   // Quantity of points
@@ -13,9 +13,14 @@ typedef struct strobject{
   // When the object is displayed, this matrix
   // is used to build the edges
   int **adjacency;
+<<<<<<< HEAD
+  // Space where it is placed
+}DimObject;
+=======
 }Object;
+>>>>>>> 84597b1039d93187c3195623d000a8044dd2c526
 
-typedef struct strspace{
+typedef struct spaceobj_strspace{
   // Struct that has information about the space
   // where the objects are placed
   // It is better to use the function newSpace to define a Space
@@ -26,11 +31,11 @@ typedef struct strspace{
   // Quantity of Objects in the space
   int objectquantity;
   // Vector of pointers to the objects contained in the space
-  Object *objects;
+  DimObject *objects;
 }Space;
 
 // This function acts like a "constructor"
-// The other arguments (in the "...") are Object
+// The other arguments (in the "...") are DimObject
 // Returns the new Space created
 Space newSpace(int dimension, int objectquantity, ...);
 // This acts like a "constructor" too
@@ -47,17 +52,24 @@ Space newSpace(int dimension, int objectquantity, ...);
 // this object has an edge between the points
 // 0(4.0, 5.2, 6.5) and
 // 1(4.3, 5.6, 6.4)
-Object newObject(int dimension, int pointquantity, int edgequantity, ...);
+DimObject newObject(int dimension, int pointquantity, int edgequantity, ...);
 // Adds some object to some Space
 // Returns 0 if it went well
 // Returns 1 if there was some allocation error
 // Returns -1 if space has different dimension to objpnt
-int addObject(Space *space, Object objpnt);
+int addObject(Space *space, DimObject objpnt);
 // Copies an object that already exists
+<<<<<<< HEAD
+DimObject copyObject(DimObject *obj);
+// Desallocates the memory to the Objects
+void deleteObject(DimObject *obj);
+// Desallocates the memory to the Spaces
+=======
 Object copyObject(Object *obj);
 // Desallocates the memory to the Object
 void deleteObject(Object *obj);
 // Desallocates the memory to the Space
+>>>>>>> 84597b1039d93187c3195623d000a8044dd2c526
 void deleteSpace(Space *space);
 
 #endif

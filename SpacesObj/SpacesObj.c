@@ -6,36 +6,36 @@
 #include <stdio.h>
 
 Space newSpace(int dimension, int objectquantity, ...){
-  Space temp;
-  temp.dimension = dimension;
-  temp.objectquantity = 0;
-  temp.objects = NULL;
+  Space space;
+  space.dimension = dimension;
+  space.objectquantity = 0;
+  space.objects = NULL;
 
   va_list args;
   va_start(args, objectquantity);
   for(int i=0; i<objectquantity; i++){
     // If there is any error, the object just wont be added
-    addObject(&temp, va_arg(args, Object));
+    addObject(&space, va_arg(args, DimObject));
   }
   va_end(args);
 
-  return temp;
+  return space;
 }
 
-Object newObject(int dimension, int pointquantity, int edgequantity, ...){
-  Object temp;
-  temp.dimension = dimension;
-  temp.points = (float**) calloc(pointquantity, sizeof(float*));
-  temp.pointquantity = pointquantity;
-  temp.adjacency = (int**) calloc(pointquantity, sizeof(int*));
+DimObject newObject(int dimension, int pointquantity, int edgequantity, ...){
+  DimObject space;
+  space.dimension = dimension;
+  space.points = (float**) calloc(pointquantity, sizeof(float*));
+  space.pointquantity = pointquantity;
+  space.adjacency = (int**) calloc(pointquantity, sizeof(int*));
 
   va_list args;
   va_start(args, edgequantity);
   for(int i=0; i<pointquantity; i++){
-    *(temp.points+i) = (float*) calloc(dimension, sizeof(float));
-    *(temp.adjacency+i) = (int*) calloc(pointquantity, sizeof(int));
+    *(space.points+i) = (float*) calloc(dimension, sizeof(float));
+    *(space.adjacency+i) = (int*) calloc(pointquantity, sizeof(int));
     for(int j=0; j<dimension; j++){
-      *(*(temp.points+i) + j) = (float)va_arg(args, double);
+      *(*(space.points+i) + j) = (float)va_arg(args, double);
     }
   }
   for(int i=0; i<edgequantity; i++){
@@ -61,18 +61,18 @@ Object newObject(int dimension, int pointquantity, int edgequantity, ...){
     int n1 = atoi(s1);
     int n2 = atoi(s2);
     if(pointquantity>n2 && n1>=0 && pointquantity>n2 && n2>=0){
-      *(*(temp.adjacency+n1)+n2) = 1;
-      *(*(temp.adjacency+n2)+n1) = 1;
+      *(*(space.adjacency+n1)+n2) = 1;
+      *(*(space.adjacency+n2)+n1) = 1;
     }
   }
   va_end(args);
 
-  return temp;
+  return space;
 }
 
-int addObject(Space *space, Object obj){
+int addObject(Space *space, DimObject obj){
   if(space->dimension==obj.dimension){
-    space->objects = (Object*) realloc(space->objects, (space->objectquantity+1)*sizeof(Object));
+    space->objects = (DimObject*) realloc(space->objects, (space->objectquantity+1)*sizeof(DimObject));
     if(space->objects==NULL){
       return 1;
     }else{
@@ -85,28 +85,28 @@ int addObject(Space *space, Object obj){
   }
 }
 
-Object copyObject(Object *obj){
-  Object temp;
-  temp.dimension = obj->dimension;
-  temp.pointquantity = obj->pointquantity;
+DimObject copyObject(DimObject *obj){
+  DimObject space;
+  space.dimension = obj->dimension;
+  space.pointquantity = obj->pointquantity;
 
-  temp.adjacency = (int**) calloc(temp.pointquantity, sizeof(int*));
-  temp.points = (float**) calloc(temp.pointquantity, sizeof(float*));
-  for(int i=0; i<temp.pointquantity; i++){
-    temp.adjacency[i] = (int*) calloc(temp.pointquantity, sizeof(int));
-    temp.points[i] = (float*) calloc(temp.dimension, sizeof(float));
-    for(int j=0; j<temp.pointquantity; j++){
-      temp.adjacency[i][j] = obj->adjacency[i][j];
+  space.adjacency = (int**) calloc(space.pointquantity, sizeof(int*));
+  space.points = (float**) calloc(space.pointquantity, sizeof(float*));
+  for(int i=0; i<space.pointquantity; i++){
+    space.adjacency[i] = (int*) calloc(space.pointquantity, sizeof(int));
+    space.points[i] = (float*) calloc(space.dimension, sizeof(float));
+    for(int j=0; j<space.pointquantity; j++){
+      space.adjacency[i][j] = obj->adjacency[i][j];
     }
-    for(int j=0; j<temp.dimension; j++){
-      temp.points[i][j] = obj->points[i][j];
+    for(int j=0; j<space.dimension; j++){
+      space.points[i][j] = obj->points[i][j];
     }
   }
 
-  return temp;
+  return space;
 }
 
-void deleteObject(Object *obj){
+void deleteObject(DimObject *obj){
   for(int i=0; i<obj->pointquantity; i++){
     free(*(obj->points+i));
     free(*(obj->adjacency+i));

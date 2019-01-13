@@ -21,7 +21,7 @@
 // removed. Example: a point (0.1,0.2,0.3) projected to a 2-dimensional point
 // will be (0.1,0.2); if we project the point (2,3) to a 3-dimensional point,
 // the result will be (2,3,0).
-Object projection(Object *obj, int finaldimension);
+DimObject projection(DimObject *obj, int finaldimension);
 
 // just multplies the vector and the matrix
 // m and n are the size of the matrix
