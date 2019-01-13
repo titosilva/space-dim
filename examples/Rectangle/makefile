@@ -1,6 +1,6 @@
 finaltarget=RectangleExe
 mainfile=Rectangle.cpp
-spacedimpath=../../../space-dim/
+spacedimpath=../../
 
 CC=g++
 CFLAGS=-lsfml-graphics -lsfml-window -lsfml-system
