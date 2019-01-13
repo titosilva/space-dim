@@ -1,8 +1,8 @@
 #include "SpacesObjForSFML.h"
 #include "SpacesObj.h"
 #include <SFML/Graphics.hpp>
-// teste
-#include <iostream>
+// used for tests:
+// #include <iostream>
 
 bool DrawableObject2d::setObject(DimObject *obj)
 {
@@ -34,7 +34,8 @@ void DrawableObject2d::draw(sf::RenderTarget& target, sf::RenderStates states) c
             sf::Vertex(sf::Vector2f(this->object.points[j][0], this->object.points[j][1]), this->pointcolor)
           };
           target.draw(points, 2, sf::Lines);
-          std::cout<< points[0].position.x << ", " << points[0].position.y << "\t" << points[1].position.x << ", " << points[1].position.y << "\n";
+          //used for tests:
+          //std::cout<< points[0].position.x << ", " << points[0].position.y << "\t" << points[1].position.x << ", " << points[1].position.y << "\n";
         }
       }
     }
