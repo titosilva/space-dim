@@ -22,8 +22,8 @@ typedef struct spaceobj_strobject{
 typedef struct spaceobj_strspace{
   // Struct that has information about the space
   // where the objects are placed
-  // It is better to use the function newSpace to define a Space
-  // instead of using the type Space alone
+  // It is better to use the function newSpace to define a DimSpace
+  // instead of using the type DimSpace alone
 
   // Number of dimensions
   int dimension;
@@ -34,12 +34,12 @@ typedef struct spaceobj_strspace{
   // Vector of pointers to the objects contained in the space
   DimObject *objects;
 
-}Space;
+}DimSpace;
 
 // This function acts like a "constructor"
 // The other arguments (in the "...") are DimObject
-// Returns the new Space created
-Space newSpace(int dimension, int objectquantity, ...);
+// Returns the new DimSpace created
+DimSpace newSpace(int dimension, int objectquantity, ...);
 
 
 // This acts like a "constructor" too
@@ -59,11 +59,11 @@ Space newSpace(int dimension, int objectquantity, ...);
 DimObject newObject(int dimension, int pointquantity, int edgequantity, ...);
 
 
-// Adds some object to some Space
+// Adds some object to some DimSpace
 // Returns 0 if it went well
 // Returns 1 if there was some allocation error
 // Returns -1 if space has different dimension to objpnt
-int addObject(Space *space, DimObject objpnt);
+int addObject(DimSpace *space, DimObject objpnt);
 
 
 // Copies an object that already exists
@@ -74,7 +74,7 @@ DimObject copyObject(DimObject *obj);
 void deleteObject(DimObject *obj);
 
 
-// Desallocates the memory to the Space
-void deleteSpace(Space *space);
+// Desallocates the memory to the DimSpace
+void deleteSpace(DimSpace *space);
 
 #endif

@@ -2,11 +2,11 @@
 #include <stdarg.h>
 #include <string.h>
 #include <stdlib.h>
-//for tests
-#include <stdio.h>
+// for tests
+// #include <stdio.h>
 
-Space newSpace(int dimension, int objectquantity, ...){
-  Space space;
+DimSpace newSpace(int dimension, int objectquantity, ...){
+  DimSpace space;
   space.dimension = dimension;
   space.objectquantity = 0;
   space.objects = NULL;
@@ -70,7 +70,7 @@ DimObject newObject(int dimension, int pointquantity, int edgequantity, ...){
   return space;
 }
 
-int addObject(Space *space, DimObject obj){
+int addObject(DimSpace *space, DimObject obj){
   if(space->dimension==obj.dimension){
     space->objects = (DimObject*) realloc(space->objects, (space->objectquantity+1)*sizeof(DimObject));
     if(space->objects==NULL){
@@ -115,7 +115,7 @@ void deleteObject(DimObject *obj){
   free(obj->adjacency);
 }
 
-void deleteSpace(Space *space){
+void deleteSpace(DimSpace *space){
   for(int i=0; i<space->objectquantity; i++){
     deleteObject(space->objects);
   }
