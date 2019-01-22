@@ -23,12 +23,13 @@ int deleteObject(DimObject *obj){
     if(!obj->error){
         if(!obj->deleted){
             if(obj->points!=NULL && obj->adjacency!=NULL){
-                for(int i=0; i<obj->pointquantity; i++){
-                    free(obj->points[i]);
-                    free(obj->adjacency[i]);
+                for(; obj->pointquantity>0; obj->pointquantity--){
+                    free(obj->points[obj->pointquantity-1]);
+                    free(obj->adjacency[obj->pointquantity-1]);
                 }
                 free(obj->points);
                 free(obj->adjacency);
+                obj->deleted = 1;
                 return 0;
             }else{
                 return -1;
