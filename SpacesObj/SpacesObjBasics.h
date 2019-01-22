@@ -32,7 +32,7 @@ typedef struct spacedim_strdimobject{
 // sets up an object
 DimObject newObject(int dimension);
 // destroys an object (desallocates memory)
-void deleteObject(DimObject *obj);
+int deleteObject(DimObject *obj);
 
 // makes a copy of some object
 // the clone has the same adresses of the original object
