@@ -41,3 +41,24 @@ int deleteObject(DimObject *obj){
         return 1;
     }
 }
+
+DimObject copyObject(DimObject *obj){
+    if(!obj->deleted){
+        DimObject object;
+        if(obj->points==NULL && obj->adjacency==NULL){
+            object.adjacency = object.points = NULL;
+            object.points = 0;
+            object.error = obj->error;
+            object.dimension = obj->dimension;
+            object.deleted = obj->deleted;
+        }else{
+            for(int i=0; i<obj->pointquantity; i++){
+
+            }
+        }
+    }
+}
+
+int addPoint(DimObject *obj, float *point){
+    
+}
