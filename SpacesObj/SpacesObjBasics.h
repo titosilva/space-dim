@@ -1,6 +1,13 @@
 #ifndef SPACEDIM_SPACEANDOBJECTS_BASICS_H
 #define SPACEDIM_SPACEANDOBJECTS_BASICS_H
 
+// OBJECT ERROR CODES
+
+// Allocation Fail
+#define DIMOBJ_ERROR_ALLOC 0x000000AF
+// 0xA_0000AF - Errors in function addPoint
+
+
 // Used to store the object information
 typedef struct spacedim_strdimobject{
     // Number of "dimensions"

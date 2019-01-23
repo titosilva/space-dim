@@ -60,5 +60,26 @@ DimObject copyObject(DimObject *obj){
 }
 
 int addPoint(DimObject *obj, float *point){
-    
+    if(obj->adjacency==NULL && obj->points==NULL){
+        obj->points = (float**) calloc(1, sizeof(float*));
+        obj->adjacency = (int**) calloc(1, sizeof(int*));
+        if(obj->adjacency!=NULL && obj->points!=NULL){
+            obj->points[0] = (float*) calloc(obj->dimension, sizeof(float));
+            obj->adjacency[0] = (int*) calloc(1, sizeof(int));
+            if(obj->points[0]!=NULL && obj->adjacency[0]!=NULL){
+                for(int i=0; i<obj->dimension; i++){
+                    obj->points[0][i] = point[i];
+                }
+                obj->pointquantity++;
+            }else{
+                obj->error = DIMOBJ_ERROR_ALLOC | 0xA2000000;
+            }
+        }else{
+            obj->error = DIMOBJ_ERROR_ALLOC | 0xA1000000;
+        }
+    }else{
+        
+    }
+
+    return obj->error;
 }
