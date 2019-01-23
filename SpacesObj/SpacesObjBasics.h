@@ -65,6 +65,8 @@ void printPoints(DimObject *obj);
 int addEdge(DimObject *obj, int point1, int point2);
 // Changes the adjacency matrix, removing some edge
 int removeEdge(DimObject *obj, int point1, int point2);
+// Counts how many edges are there in the object
+int countEdges(DimObject *obj);
 // Prints all the edges of the object to stdout
 void printEdges(DimObject *obj);
 

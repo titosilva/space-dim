@@ -126,3 +126,27 @@ void printPoints(DimObject *obj){
         putchar('\n');
     }
 }
+
+void printEdges(DimObject *obj){
+    // Searchs in the top half of the adjacency matrix for edges
+    printf("Edges(%d):\n", countEdges(obj));
+    for(int i=0; i<obj->pointquantity; i++){
+        for(int j=i; j<obj->pointquantity; j++){
+            if(obj->adjacency[i][j]){
+                printf("%d\t%d\n", i, j);
+            }
+        }
+    }
+}
+
+int countEdges(DimObject *obj){
+    int sum=0;
+    for(int i=0; i<obj->pointquantity; i++){
+        for(int j=i; j<obj->pointquantity; j++){
+            if(obj->adjacency[i][j]){
+                sum++;
+            }
+        }
+    }
+    return sum;
+}
