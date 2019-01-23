@@ -3,6 +3,9 @@
 
 // OBJECT ERROR CODES
 
+// Object deleted
+#define DIMOBJ_ERROR_DELETED 0x0000DEAD
+
 // Allocation Fail
 #define DIMOBJ_ERROR_ALLOC 0x000000AF
 // 0xA_0000AF - Errors in function addPoint
