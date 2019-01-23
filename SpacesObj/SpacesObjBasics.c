@@ -1,5 +1,6 @@
 #include "SpacesObjBasics.h"
 #include <stdlib.h>
+#include <stdio.h>
 
 DimObject newObject(int dimension){
     DimObject object;
@@ -23,9 +24,10 @@ int deleteObject(DimObject *obj){
     if(!obj->error){
         if(!obj->deleted){
             if(obj->points!=NULL && obj->adjacency!=NULL){
-                for(; obj->pointquantity>0; obj->pointquantity--){
-                    free(obj->points[obj->pointquantity-1]);
-                    free(obj->adjacency[obj->pointquantity-1]);
+                for(int i=0; i<obj->pointquantity; i++){
+                    free(obj->points[i]);
+                    free(obj->adjacency[i]);
+                    printf("%d\n", i);
                 }
                 free(obj->points);
                 free(obj->adjacency);
@@ -46,7 +48,8 @@ DimObject copyObject(DimObject *obj){
     if(!obj->deleted){
         DimObject object;
         if(obj->points==NULL && obj->adjacency==NULL){
-            object.adjacency = object.points = NULL;
+            object.adjacency = NULL;
+            object.points = NULL;
             object.points = 0;
             object.error = obj->error;
             object.dimension = obj->dimension;
@@ -66,7 +69,7 @@ DimObject copyObject(DimObject *obj){
 
 int addPoint(DimObject *obj, float *point){
     if(!obj->deleted && !obj->error){
-        if(obj->adjacency==NULL && obj->points==NULL){
+        if(obj->adjacency==NULL && obj->points==NULL && obj->pointquantity==0){
             obj->points = (float**) calloc(1, sizeof(float*));
             obj->adjacency = (int**) calloc(1, sizeof(int*));
             if(obj->adjacency!=NULL && obj->points!=NULL){
@@ -85,6 +88,7 @@ int addPoint(DimObject *obj, float *point){
             }
         }else{
             // New adjacency matrix
+            printf("K: %d\n", obj->pointquantity);
             obj->adjacency = (int**) realloc(obj->adjacency, obj->pointquantity+1);
             if(obj->adjacency==NULL){
                 obj->error = DIMOBJ_ERROR_ALLOC | 0xA3000000;
@@ -112,6 +116,7 @@ int addPoint(DimObject *obj, float *point){
                         for(int i=0; i<obj->dimension; i++){
                             obj->points[obj->pointquantity][i] = point[i];
                         }
+                        obj->pointquantity++;
                     }
                 }else{
                     obj->error = DIMOBJ_ERROR_ALLOC | 0xA6000000;
@@ -124,5 +129,16 @@ int addPoint(DimObject *obj, float *point){
         }
     }
 
+    printf("%d\n", obj->pointquantity);
     return obj->error;
+}
+
+void printPoints(DimObject *obj){
+    printf("Points(%d):\n", obj->pointquantity);
+    for(int i=0; i<obj->pointquantity; i++){
+        for(int j=0; j<obj->dimension; j++){
+            printf("%f\t", obj->points[i][j]);
+        }
+        putchar('\n');
+    }
 }
