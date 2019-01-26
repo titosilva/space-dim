@@ -235,9 +235,8 @@ int addEdge(DimObject *obj, int point1, int point2){
         if(obj->deleted){
             obj->error = DIMOBJ_ERROR_DELETED;
         }
+        return obj->error;
     }
-
-    return obj->error;
 }
 
 int countEdges(DimObject *obj){
