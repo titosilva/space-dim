@@ -140,6 +140,57 @@ int addPoint(DimObject *obj, float *point){
     return obj->error;
 }
 
+int removePoint(DimObject *obj, int pointindex){
+    if(!obj->error && !obj->deleted){
+        float **newpointmat = (float**) calloc(obj->pointquantity-1, sizeof(float*));
+        int **newadjmat = (int**) calloc(obj->pointquantity-1, sizeof(int*));
+        if(newadjmat != NULL && newpointmat != NULL){
+            int j=0;
+            for(int i=0; i<obj->pointquantity && obj->error==0; i++){
+                if(i==pointindex) continue;
+                newpointmat[j] = (float*) calloc(obj->dimension, sizeof(float));
+                newadjmat[j] = (int*) calloc(obj->pointquantity-1, sizeof(int));
+                if(newadjmat[j] != NULL && newpointmat[j] != NULL){
+                    for(int k=0; k<obj->dimension; k++){
+                        newpointmat[j][k] = obj->points[i][k];
+                    }
+                    int n=0;
+                    for(int k=0; k<obj->pointquantity; k++){
+                        if(k==pointindex) continue;
+                        newadjmat[j][n] = obj->adjacency[i][k];
+                        n++;
+                    }
+                }else{
+                    obj->error = DIMOBJ_ERROR_ALLOC | 0xB1000000;
+                }
+
+                j++;
+            }
+
+            if(!obj->error){
+                for(int i=0; i<obj->pointquantity; i++){
+                    free(obj->points[i]);
+                    free(obj->adjacency[i]);
+                }
+                free(obj->points);
+                free(obj->adjacency);
+
+                obj->adjacency = newadjmat;
+                obj->points = newpointmat;
+                obj->pointquantity--;
+            }
+        }else{
+            obj->error = DIMOBJ_ERROR_ALLOC | 0xB0000000;
+        }
+    }else{
+        if(obj->deleted){
+            obj->error = DIMOBJ_ERROR_DELETED;
+        }
+    }
+
+    return obj->error;
+}
+
 void printPoints(DimObject *obj){
     printf("Points(%d):\n", obj->pointquantity);
     for(int i=0; i<obj->pointquantity; i++){
@@ -148,6 +199,23 @@ void printPoints(DimObject *obj){
         }
         putchar('\n');
     }
+}
+
+int removeEdge(DimObject *obj, int point1, int point2){
+    if(!obj->deleted && !obj->error){
+        if(point1>=0 && point2>=0 && point1<obj->pointquantity && point2<obj->pointquantity){
+            obj->adjacency[point1][point2] = 0;
+            obj->adjacency[point2][point1] = 0;
+        }else{
+            return -1;
+        }
+    }else{
+        if(obj->deleted){
+            obj->error = DIMOBJ_ERROR_DELETED;
+        }
+    }
+
+    return obj->error;
 }
 
 int addEdge(DimObject *obj, int point1, int point2){
