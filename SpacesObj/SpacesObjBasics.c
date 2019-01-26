@@ -46,25 +46,48 @@ int deleteObject(DimObject *obj){
 
 DimObject copyObject(DimObject *obj){
     if(!obj->deleted){
-        DimObject object;
+        DimObject object = newObject(obj->dimension);
+        object.deleted = obj->deleted;
+
         if(obj->points==NULL || obj->adjacency==NULL){
             object.adjacency = NULL;
             object.points = NULL;
             object.points = 0;
             object.error = obj->error;
-            object.dimension = obj->dimension;
-            object.deleted = obj->deleted;
         }else{
             for(int i=0; i<obj->pointquantity; i++){
-
+                addPoint(&object, obj->points[i]);
             }
+
+            for(int i=0; i<obj->pointquantity; i++){
+                for(int j=i; j<obj->pointquantity; j++){
+                    if(obj->adjacency[i][j]){
+                        addEdge(&object, i, j);
+                    }
+                }
+            }
+
         }
+
+        return object;
     }else{
         DimObject object = newObject(obj->dimension);
         object.error = DIMOBJ_ERROR_DELETED;
         object.deleted = 1;
         return object;
     }
+}
+
+DimObject cloneObject(DimObject *obj){
+    DimObject object = newObject(obj->dimension);
+
+    object.adjacency = obj->adjacency;
+    object.deleted = obj->deleted;
+    object.error = obj->error;
+    object.pointquantity = obj->pointquantity;
+    object.points = obj->points;
+    
+    return object;
 }
 
 int addPoint(DimObject *obj, float *point){
