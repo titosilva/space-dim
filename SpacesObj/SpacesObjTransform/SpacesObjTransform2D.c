@@ -1,5 +1,6 @@
 #include "SpacesObjTransform2D.h"
 #include <math.h>
+#include <stdio.h>
 
 int rotation2D(DimObject *obj, float angle, float centerx, float centery){
     if(obj->dimension==2){
@@ -19,9 +20,9 @@ int translation2D(DimObject *obj, float deltax, float deltay){
     if(obj->dimension==2){
         for(int i=0; i<obj->pointquantity; i++){
             obj->points[i][0] += deltax;
-            obj->points[i][0] += deltay;
-            return 0;
+            obj->points[i][1] += deltay;
         }
+        return 0;
     }else{
         return 1;
     }
