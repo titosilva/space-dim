@@ -53,7 +53,7 @@ void DrawableObject2d::draw(sf::RenderTarget& target, sf::RenderStates states) c
   }
 }
 
-DrawableObject2d::DrawableObject2d(void)
+DrawableObject2d::DrawableObject2d()
 {
   this->objectIsSet = false;
   this->setColor(sf::Color::Red);
