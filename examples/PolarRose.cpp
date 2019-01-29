@@ -14,6 +14,7 @@
     $ g++ PolarRose.cpp ../SpacesObj/SpacesObjBasics.c \
     ../SpacesObj/SpacesObjForSFML/2DSpacesObjForSFML.cpp \
     ../SpacesObj/SpacesObjTransform/SpacesObjTransform2D.c \
+    ../SpacesObj/SpacesObjForSFML/SpacesObjForSFML.cpp \
     -lm -lsfml-graphics -lsfml-window -lsfml-system
 
     on your command line, setting this example directory as the current directory
@@ -23,15 +24,23 @@
 #include "../SpaceDim.h"
 #include <SFML/Graphics.hpp>
 #include <math.h>
+#include <time.h>
 #include <iostream>
 
 #define STARTANGLE 2*M_PI
 #define ENDANGLE 0
 #define RADIUS 100
+// Number of points used to build the rose
 #define NUMBEROFPOINTS 200
+// Position of the rose
 #define CENTERPOSITION 150
+// Use sine in the equation of the rose
 #define USESINE 1
-#define ANIMATION 0
+// Animation of rotating rose
+// If set to 1, the rose will be rotating
+#define ANIMATION 1
+// Number of frames per second
+#define FRAMERATE 5
 
 int main(int argc, char const *argv[])
 {
@@ -72,6 +81,8 @@ int main(int argc, char const *argv[])
             window.clear();
             window.draw(rose);
             window.display();
+            clock_t start = clock();
+            while((double)(clock()-start)/CLOCKS_PER_SEC<(double)1/FRAMERATE);
         }
 
         while(window.pollEvent(event)){
