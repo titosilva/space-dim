@@ -55,8 +55,9 @@ void DrawableObject2d::draw(sf::RenderTarget& target, sf::RenderStates states) c
 
 DrawableObject2d::DrawableObject2d()
 {
-  this->objectIsSet = false;
   this->setColor(sf::Color::Red);
+  this->object = newObject(2);
+  this->objectIsSet = true;
 }
 
 DrawableObject2d::~DrawableObject2d()

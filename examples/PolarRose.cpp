@@ -39,10 +39,6 @@ int main(int argc, char const *argv[])
     DrawableObject2d rose;
     float factor;
     float point[2];
-
-    DimObject base_2 = newObject(2);
-
-    rose.setObject(&base_2);
     
     std::cout << "What is the factor? " << std::endl;
 
