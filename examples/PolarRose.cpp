@@ -14,7 +14,6 @@
     $ g++ PolarRose.cpp ../SpacesObj/SpacesObjBasics.c \
     ../SpacesObj/SpacesObjForSFML/2DSpacesObjForSFML.cpp \
     ../SpacesObj/SpacesObjTransform/SpacesObjTransform2D.c \
-    ../SpacesObj/SpacesObjForSFML/SpacesObjForSFML.cpp \
     -lm -lsfml-graphics -lsfml-window -lsfml-system
 
     on your command line, setting this example directory as the current directory
