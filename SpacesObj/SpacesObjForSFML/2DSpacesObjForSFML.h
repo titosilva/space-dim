@@ -11,7 +11,7 @@ public:
   bool setObject(DimObject *obj);
   void setColor(sf::Color color);
   ~DrawableObject2d();
-  DrawableObject2d();
+  DrawableObject2d(void);
   bool objectIsSet;
   DimObject object;
 private:

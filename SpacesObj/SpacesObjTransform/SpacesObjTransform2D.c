@@ -1,6 +1,5 @@
 #include "SpacesObjTransform2D.h"
 #include <math.h>
-#include <stdio.h>
 
 int rotation2D(DimObject *obj, float angle, float centerx, float centery){
     if(obj->dimension==2){
