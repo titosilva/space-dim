@@ -24,3 +24,15 @@ void scaleObject(DimObject *obj, float factor, float *center){
         }
     }
 }
+
+void translationMultiD(DimObject *obj, float *deltas){
+    if(!obj->deleted && !obj->error){
+        for(int i=0; i<obj->pointquantity; i++){
+            for(int j=0; j<obj->dimension; j++){
+                obj->points[i][j] += deltas[j];
+            }
+        }
+    }else{
+        if(obj->deleted) obj->error = DIMOBJ_ERROR_DELETED;
+    }
+}

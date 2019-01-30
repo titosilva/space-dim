@@ -9,4 +9,7 @@ void scaleObject(DimObject *obj, float factor, float *center);
 // Gets the "center of mass" of the object
 int getCenter(DimObject *obj, float *center);
 
+// Changes the position of the object
+void translationMultiD(DimObject *obj, float *deltas);
+
 #endif

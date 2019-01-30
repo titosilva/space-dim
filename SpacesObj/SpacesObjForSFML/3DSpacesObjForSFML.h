@@ -2,7 +2,7 @@
 #define SPACEDIM_SPACESOBJFORSFML_3D_H
 
 #include <SFML/Graphics.hpp>
-#include "../SpacesObj.h"
+#include "../SpacesObjBasics.h"
 
 class DrawableSpace3d : public sf::Drawable
 {
@@ -16,10 +16,14 @@ public:
     int numberOfObjects;
     // Array of objects contained in the space
     DimObject *objects;
+    // Translation made before the drawing
+    // Important to make sure things will be
+    // in the middle of the screen, if you want it
+    float displacement[2];
 private:
-    float camPosition[3];
-    float camDirection[3];
+    float *camPosition;
+    float *camDirection;
     virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;
-}
+};
 
 #endif

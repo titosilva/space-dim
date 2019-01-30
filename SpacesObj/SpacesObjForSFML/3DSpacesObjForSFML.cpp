@@ -1,8 +1,11 @@
-#include "3DSpacesObjForSFML.h"
+#include "../SpacesObj.h"
+#include <math.h>
 
 DrawableSpace3d :: DrawableSpace3d(){
     this->numberOfObjects = 0;
     this->objects = NULL;
+    this->camDirection = (float*) calloc(3, sizeof(float));
+    this->camPosition = (float*) calloc(3, sizeof(float));
     this->camDirection[0] = 0;
     this->camDirection[1] = 0;
     this->camDirection[2] = 1;
@@ -19,10 +22,13 @@ DrawableSpace3d :: ~DrawableSpace3d(){
             }
         }
         free(this->objects);
+        free(this->camDirection);
+        free(this->camPosition);
     }
 }
 
 void DrawableSpace3d :: setCameraDirection(float x, float y, float z){
+    // make unit vector from given direction
     float norm = sqrt(x*x + y*y + z*z);
     if(norm != 0){
         this->camDirection[0] = x/norm;
@@ -42,13 +48,17 @@ void DrawableSpace3d :: setCameraPosition(float x, float y, float z){
 }
 
 int DrawableSpace3d :: addObject(DimObject *obj){
-    this->objects = (DimObject*) realloc(this->objects, (this->numberOfObjects+1)*sizeof(DimObject));
-    if(this->objects==NULL){
-        return 1;
+    if(obj->dimension==3 && !obj->deleted && !obj->error){
+        this->objects = (DimObject*) realloc(this->objects, (this->numberOfObjects+1)*sizeof(DimObject));
+        if(this->objects==NULL){
+            return 1;
+        }else{
+            this->objects[numberOfObjects] = copyObject(obj);
+            this->numberOfObjects++;
+            return 0;
+        }
     }else{
-        this->objects[numberOfObjects] = copyObject(obj);
-        this->numberOfObjects++;
-        return 0;
+        return -1;
     }
 }
 
@@ -71,5 +81,16 @@ int DrawableSpace3d :: removeObject(int objectindex){
         }else{
             return 1;
         }
+    }
+}
+
+void DrawableSpace3d :: draw(sf::RenderTarget& target, sf::RenderStates states) const{
+    for(int i=0; i<this->numberOfObjects; i++){
+        DimObject object = perspective(&this->objects[i], this->camPosition, this->camDirection);
+        DrawableObject2d dobj;
+        translation2D(&object, this->displacement[0], this->displacement[1]);
+        dobj.setObject(&object);
+        target.draw(dobj);
+        deleteObject(&object);
     }
 }
