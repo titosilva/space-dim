@@ -1,9 +1,5 @@
 # Space Dim project
-Studies about n-dimensional things and their representations
+Welcome to Space Dim project! This project just intends to make a generalization for some functions and structures for n-dimensional things and, obviously, to have some fun :laughing:
+In the wiki you can find out some explanation(or at least a try :disappointed::sweat_smile:) about how the things work. 
 
-### Spaces and Objects
-SpacesObj is a set of files that help to handle the mappings and the objects in the various dimensions.
-The "objects" (DimObject) are sets of points treated as graphs in some dimension.
-
-### Space and Objects For SFML
-Inside the folder SpacesObj, there is another folder called SpacesObjForSFML, which contains some implementations used to help the graphical representation in some cases. The SFML API is used here.
+Hope you enjoy! :alien:
