@@ -87,12 +87,5 @@ int DrawableSpace3d :: removeObject(int objectindex){
 }
 
 void DrawableSpace3d :: draw(sf::RenderTarget& target, sf::RenderStates states) const{
-    for(int i=0; i<this->numberOfObjects; i++){
-        DimObject object = perspective(&this->objects[i], this->camPosition, this->camDirection);
-        DrawableObject2d dobj;
-        translation2D(&object, this->displacement[0], this->displacement[1]);
-        dobj.setObject(&object);
-        target.draw(dobj);
-        deleteObject(&object);
-    }
+    
 }
