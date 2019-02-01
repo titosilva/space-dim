@@ -20,9 +20,9 @@ public:
     // Important to make sure things will be
     // in the middle of the screen, if you want it
     float displacement[2];
-private:
     float *camPosition;
     float *camDirection;
+private:
     virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;
 };
 

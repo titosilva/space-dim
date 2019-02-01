@@ -3,7 +3,7 @@
 #include <SFML/Graphics.hpp>
 
 // used for tests:
-// #include <iostream>
+//#include <iostream>
 
 bool DrawableObject2d::setObject(DimObject *obj)
 {

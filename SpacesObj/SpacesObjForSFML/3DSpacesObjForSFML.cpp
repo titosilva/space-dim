@@ -12,6 +12,8 @@ DrawableSpace3d :: DrawableSpace3d(){
     this->camPosition[0] = 0;
     this->camPosition[1] = 0;
     this->camPosition[2] = 0;
+    this->displacement[0] = 0;
+    this->displacement[1] = 0;
 }
 
 DrawableSpace3d :: ~DrawableSpace3d(){

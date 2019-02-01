@@ -8,8 +8,9 @@
 
 // Allocation Fail
 #define DIMOBJ_ERROR_ALLOC 0x000000AF
-// 0xA_0000AF - Errors in function addPoint
 
+// Invalid objects that can be returned
+#define DIMOBJ_ERROR_INVALID 0x000000
 
 // Used to store the object information
 typedef struct spacedim_strdimobject{
@@ -17,10 +18,10 @@ typedef struct spacedim_strdimobject{
     // Represents the space where the vectors
     // in the object are placed, e.g. R2("x and y coordinates")
     // or R3(x, y and z coordinates)
-    int dimension;
+    unsigned int dimension;
 
     // Quantity of vectors in the object
-    int pointquantity;
+    unsigned int pointquantity;
 
     // Matrix that represents the points
     float **points;
