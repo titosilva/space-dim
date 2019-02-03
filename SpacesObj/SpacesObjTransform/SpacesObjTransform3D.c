@@ -1,7 +1,7 @@
 #include "SpacesObjTransform3D.h"
 #include <math.h>
 
-int rotation3D(DimObject *obj, int axis, float angle, float *center){
+int rotation3D(ObjectScheme *obj, int axis, float angle, float *center){
     if(!obj->error && !obj->deleted){
         if(obj->dimension==3){
             for(int i=0; i<obj->pointquantity; i++){

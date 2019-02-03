@@ -2,8 +2,8 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-DimObject newObject(int dimension){
-    DimObject object;
+ObjectScheme newObject(int dimension){
+    ObjectScheme object;
 
     object.dimension = dimension;
     object.adjacency = NULL;
@@ -15,7 +15,7 @@ DimObject newObject(int dimension){
     return object;
 }
 
-int deleteObject(DimObject *obj){
+int deleteObject(ObjectScheme *obj){
     // Return codes:
     // 0: all went well :)
     // 1: The object has some error, so the deletion operation won't be realizaed
@@ -44,9 +44,9 @@ int deleteObject(DimObject *obj){
     }
 }
 
-DimObject copyObject(DimObject *obj){
+ObjectScheme copyObject(ObjectScheme *obj){
     if(!obj->deleted){
-        DimObject object = newObject(obj->dimension);
+        ObjectScheme object = newObject(obj->dimension);
         object.deleted = obj->deleted;
 
         if(obj->points==NULL || obj->adjacency==NULL){
@@ -71,15 +71,15 @@ DimObject copyObject(DimObject *obj){
 
         return object;
     }else{
-        DimObject object = newObject(obj->dimension);
+        ObjectScheme object = newObject(obj->dimension);
         object.error = DIMOBJ_ERROR_DELETED;
         object.deleted = 1;
         return object;
     }
 }
 
-DimObject cloneObject(DimObject *obj){
-    DimObject object = newObject(obj->dimension);
+ObjectScheme cloneObject(ObjectScheme *obj){
+    ObjectScheme object = newObject(obj->dimension);
 
     object.adjacency = obj->adjacency;
     object.deleted = obj->deleted;
@@ -90,14 +90,14 @@ DimObject cloneObject(DimObject *obj){
     return object;
 }
 
-int addPoint(DimObject *obj, float *point){
+int addPoint(ObjectScheme *obj, float *point){
     if(!obj->error && !obj->deleted){
         float **newpointmat = (float**) calloc(obj->pointquantity+1, sizeof(float*));
-        int **newadjmat = (int**) calloc(obj->pointquantity+1, sizeof(int*));
+        char **newadjmat = (char**) calloc(obj->pointquantity+1, sizeof(char*));
         if(newadjmat != NULL && newpointmat != NULL){
             for(int i=0; i<obj->pointquantity+1 && obj->error==0; i++){
                 newpointmat[i] = (float*) calloc(obj->dimension, sizeof(float));
-                newadjmat[i] = (int*) calloc(obj->pointquantity+1, sizeof(int));
+                newadjmat[i] = (char*) calloc(obj->pointquantity+1, sizeof(char));
                 if(newadjmat[i] != NULL && newpointmat[i] != NULL){
                     for(int j=0; j<obj->dimension; j++){
                         if(i==obj->pointquantity){
@@ -140,16 +140,16 @@ int addPoint(DimObject *obj, float *point){
     return obj->error;
 }
 
-int removePoint(DimObject *obj, int pointindex){
+int removePoint(ObjectScheme *obj, int pointindex){
     if(!obj->error && !obj->deleted){
         float **newpointmat = (float**) calloc(obj->pointquantity-1, sizeof(float*));
-        int **newadjmat = (int**) calloc(obj->pointquantity-1, sizeof(int*));
+        char **newadjmat = (char**) calloc(obj->pointquantity-1, sizeof(char*));
         if(newadjmat != NULL && newpointmat != NULL){
             int j=0;
             for(int i=0; i<obj->pointquantity && obj->error==0; i++){
                 if(i==pointindex) continue;
                 newpointmat[j] = (float*) calloc(obj->dimension, sizeof(float));
-                newadjmat[j] = (int*) calloc(obj->pointquantity-1, sizeof(int));
+                newadjmat[j] = (char*) calloc(obj->pointquantity-1, sizeof(char));
                 if(newadjmat[j] != NULL && newpointmat[j] != NULL){
                     for(int k=0; k<obj->dimension; k++){
                         newpointmat[j][k] = obj->points[i][k];
@@ -191,7 +191,7 @@ int removePoint(DimObject *obj, int pointindex){
     return obj->error;
 }
 
-void printPoints(DimObject *obj){
+void printPoints(ObjectScheme *obj){
     printf("Points(%d):\n", obj->pointquantity);
     for(int i=0; i<obj->pointquantity; i++){
         for(int j=0; j<obj->dimension; j++){
@@ -201,24 +201,7 @@ void printPoints(DimObject *obj){
     }
 }
 
-int removeEdge(DimObject *obj, int point1, int point2){
-    if(!obj->deleted && !obj->error){
-        if(point1>=0 && point2>=0 && point1<obj->pointquantity && point2<obj->pointquantity){
-            obj->adjacency[point1][point2] = 0;
-            obj->adjacency[point2][point1] = 0;
-        }else{
-            return -1;
-        }
-    }else{
-        if(obj->deleted){
-            obj->error = DIMOBJ_ERROR_DELETED;
-        }
-    }
-
-    return obj->error;
-}
-
-int addEdge(DimObject *obj, int point1, int point2){
+int addEdge(ObjectScheme *obj, int point1, int point2){
     if(!obj->deleted && !obj->error){
         if(point1!=point2){
             if(point1>=0 && point1<obj->pointquantity && point2>=0 && point2<obj->pointquantity){
@@ -239,7 +222,24 @@ int addEdge(DimObject *obj, int point1, int point2){
     }
 }
 
-int countEdges(DimObject *obj){
+int removeEdge(ObjectScheme *obj, int point1, int point2){
+    if(!obj->deleted && !obj->error){
+        if(point1>=0 && point2>=0 && point1<obj->pointquantity && point2<obj->pointquantity){
+            obj->adjacency[point1][point2] = 0;
+            obj->adjacency[point2][point1] = 0;
+        }else{
+            return -1;
+        }
+    }else{
+        if(obj->deleted){
+            obj->error = DIMOBJ_ERROR_DELETED;
+        }
+    }
+
+    return obj->error;
+}
+
+int countEdges(ObjectScheme *obj){
     int sum=0;
     for(int i=0; i<obj->pointquantity; i++){
         for(int j=i; j<obj->pointquantity; j++){
@@ -251,7 +251,7 @@ int countEdges(DimObject *obj){
     return sum;
 }
 
-void printEdges(DimObject *obj){
+void printEdges(ObjectScheme *obj){
     // Searchs in the top half of the adjacency matrix for edges
     printf("Edges(%d):\n", countEdges(obj));
     for(int i=0; i<obj->pointquantity; i++){

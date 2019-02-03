@@ -3,7 +3,7 @@
 #include <math.h>
 #include <stdio.h>
 
-int getCenter(DimObject *obj, float *center){
+int getCenter(ObjectScheme *obj, float *center){
     if(center != NULL){
         for(int i=0; i<obj->dimension; i++){
             float soma = 0;
@@ -18,7 +18,7 @@ int getCenter(DimObject *obj, float *center){
     }
 }
 
-void scaleObject(DimObject *obj, float factor, float *center){
+void scaleObject(ObjectScheme *obj, float factor, float *center){
     for(int i=0; i<obj->pointquantity; i++){
         for(int j=0; j<obj->dimension; j++){
             obj->points[i][j] = factor*(obj->points[i][j] - center[j]) + center[j];
@@ -26,7 +26,7 @@ void scaleObject(DimObject *obj, float factor, float *center){
     }
 }
 
-void translationMultiD(DimObject *obj, float *deltas){
+void translationMultiD(ObjectScheme *obj, float *deltas){
     if(!obj->deleted && !obj->error){
         for(int i=0; i<obj->pointquantity; i++){
             for(int j=0; j<obj->dimension; j++){
@@ -55,7 +55,7 @@ int GivensRotationToPoint(float *point, float angle, int i, int j, float *center
     }
 }
 
-int GivensRotationToObject(DimObject *obj, float angle, int i, int j, float *center){
+int GivensRotationToObject(ObjectScheme *obj, float angle, int i, int j, float *center){
     if(!obj->deleted && !obj->error && i>=0 && j>=0 && i<obj->dimension && j<obj->dimension){
         if(i>=0 && j>=0 && i<obj->dimension && j<obj->dimension){
             for(int k=0; k<obj->pointquantity; k++){

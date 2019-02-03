@@ -3,6 +3,6 @@
 
 #include "../SpacesObjBasics.h"
 // Rotation around x, y and z axis
-int rotation3D(DimObject *obj, int axis, float angle, float *center);
+int rotation3D(ObjectScheme *obj, int axis, float angle, float *center);
 
 #endif

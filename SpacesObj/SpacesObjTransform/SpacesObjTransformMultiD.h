@@ -4,13 +4,13 @@
 
 // Multplies the vectors between the objects points and the center
 // by the given factor
-void scaleObject(DimObject *obj, float factor, float *center);
+void scaleObject(ObjectScheme *obj, float factor, float *center);
 
 // Gets the "center of mass" of the object
-int getCenter(DimObject *obj, float *center);
+int getCenter(ObjectScheme *obj, float *center);
 
 // Changes the position of the object
-void translationMultiD(DimObject *obj, float *deltas);
+void translationMultiD(ObjectScheme *obj, float *deltas);
 
 // Applies a Givens Rotation in the plane (i, j)
 // See more at https://en.wikipedia.org/wiki/Givens_rotation
@@ -18,6 +18,6 @@ void translationMultiD(DimObject *obj, float *deltas);
 // The result is stored in the point address passed
 int GivensRotationToPoint(float *point, float angle, int i, int j, float *center);
 // Gives Rotation to objects
-int GivensRotationToObject(DimObject *obj, float angle, int i, int j, float *center);
+int GivensRotationToObject(ObjectScheme *obj, float angle, int i, int j, float *center);
 
 #endif

@@ -49,9 +49,9 @@ void DrawableSpace3d :: setCameraPosition(float x, float y, float z){
     this->camPosition[2] = z;
 }
 
-int DrawableSpace3d :: addObject(DimObject *obj){
+int DrawableSpace3d :: addObject(ObjectScheme *obj){
     if(obj->dimension==3 && !obj->deleted && !obj->error){
-        this->objects = (DimObject*) realloc(this->objects, (this->numberOfObjects+1)*sizeof(DimObject));
+        this->objects = (ObjectScheme*) realloc(this->objects, (this->numberOfObjects+1)*sizeof(ObjectScheme));
         if(this->objects==NULL){
             return 1;
         }else{
@@ -66,7 +66,7 @@ int DrawableSpace3d :: addObject(DimObject *obj){
 
 int DrawableSpace3d :: removeObject(int objectindex){
     if(objectindex>=0 && objectindex<this->numberOfObjects){
-        DimObject *newobjectsarray = (DimObject*) calloc(numberOfObjects-1, sizeof(DimObject));
+        ObjectScheme *newobjectsarray = (ObjectScheme*) calloc(numberOfObjects-1, sizeof(ObjectScheme));
         if(newobjectsarray!=NULL){
             int j=0;
             for(int i=0; i<numberOfObjects; i++){

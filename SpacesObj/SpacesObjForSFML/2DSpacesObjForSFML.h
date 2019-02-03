@@ -3,17 +3,17 @@
 #include "../SpacesObjBasics.h"
 #include <SFML/Graphics.hpp>
 
-// Class that allows a DimObject from SpacesObj to be drawed by SFML
+// Class that allows a ObjectScheme from SpacesObj to be drawed by SFML
 // Uses the Drawable class as base
 class DrawableObject2d : public sf::Drawable
 {
 public:
-  bool setObject(DimObject *obj);
+  bool setObject(ObjectScheme *obj);
   void setColor(sf::Color color);
   ~DrawableObject2d();
   DrawableObject2d();
   bool objectIsSet;
-  DimObject object;
+  ObjectScheme object;
 private:
   sf::Color pointcolor;
   virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;

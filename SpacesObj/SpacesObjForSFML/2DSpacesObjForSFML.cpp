@@ -5,7 +5,7 @@
 // used for tests:
 //#include <iostream>
 
-bool DrawableObject2d::setObject(DimObject *obj)
+bool DrawableObject2d::setObject(ObjectScheme *obj)
 {
   if(obj->dimension==2){
     if(this->objectIsSet){
