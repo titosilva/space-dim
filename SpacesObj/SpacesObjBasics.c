@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-ObjectScheme newObject(int dimension){
+ObjectScheme newObject(unsigned int dimension){
     ObjectScheme object;
 
     object.dimension = dimension;
@@ -141,7 +141,7 @@ int addPoint(ObjectScheme *obj, float *point){
 }
 
 int removePoint(ObjectScheme *obj, int pointindex){
-    if(!obj->error && !obj->deleted){
+    if(!obj->error && !obj->deleted){ 
         float **newpointmat = (float**) calloc(obj->pointquantity-1, sizeof(float*));
         char **newadjmat = (char**) calloc(obj->pointquantity-1, sizeof(char*));
         if(newadjmat != NULL && newpointmat != NULL){

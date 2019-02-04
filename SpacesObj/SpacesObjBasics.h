@@ -41,7 +41,7 @@ typedef struct spacedim_strObjectScheme{
 } ObjectScheme;
 
 // sets up an object
-ObjectScheme newObject(int dimension);
+ObjectScheme newObject(unsigned int dimension);
 // destroys an object (desallocates memory)
 int deleteObject(ObjectScheme *obj);
 

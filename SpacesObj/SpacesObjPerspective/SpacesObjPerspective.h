@@ -1,0 +1,6 @@
+#ifndef SPACEDIM_SPACESOBJPERSPECTIVE_H
+#define SPACEDIM_SPACESOBJPERSPECTIVE_H
+
+#include "SpacesObjProjection.h"
+
+#endif

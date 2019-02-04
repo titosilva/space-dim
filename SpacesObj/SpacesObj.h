@@ -4,5 +4,6 @@
 #include "SpacesObjBasics.h"
 #include "./SpacesObjForSFML/SpacesObjForSFML.h"
 #include "./SpacesObjTransform/SpacesObjTransform.h"
+#include "./SpacesObjPerspective/SpacesObjPerspective.h"
 
 #endif
